@@ -27,11 +27,6 @@ flutter:
 topics:
   - flutter
   - shimmer
-  - skeleton-loader
   - loading-animation
+  - skeleton-loader
   - flutter-ui
-  - placeholder-widget
-  - flutter-effects
-  - ui-loading
-  - shimmer-placeholder
-  - shimmer-effect
