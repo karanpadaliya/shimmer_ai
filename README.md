@@ -33,7 +33,7 @@ Text('Hello').withShimmerAi(loading: true);
 
 <pre><code class="language-yaml">
 dependencies:
-  shimmer_ai: ^1.0.0
+  shimmer_ai: ^1.1.0
 </code></pre>
 
 <p>Then run <code>flutter pub get</code> in your terminal.</p>
