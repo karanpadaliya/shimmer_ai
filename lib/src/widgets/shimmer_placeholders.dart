@@ -44,7 +44,8 @@ class ShimmerBoxPlaceholder extends StatelessWidget {
   final Widget? original;
   final bool isCircle;
 
-  const ShimmerBoxPlaceholder({this.original, this.isCircle = false, super.key});
+  const ShimmerBoxPlaceholder(
+      {this.original, this.isCircle = false, super.key});
 
   @override
   Widget build(BuildContext context) {
