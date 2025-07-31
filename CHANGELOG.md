@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.1+1] - July 31, 2025
+**Released:** July 31, 2025
+
+### Changed
+- 🧹 Fixed code formatting.
+- 📝 Shortened package description in `pubspec.yaml` for better SEO.
+
+## [1.2.1] - July 31, 2025
+**Released:** July 31, 2025
+
+### Changed
+- 🧹 Fixed code formatting.
+
 ## [1.2.0] - July 31, 2025
 **Released:** July 31, 2025
 

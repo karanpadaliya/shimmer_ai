@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer_ai/src/shimmer_ai_config.dart';
-import 'package:shimmer_ai/src/widgets/shimmer_placeholders.dart';
 import 'package:shimmer_ai/src/utils/widget_type_utils.dart';
+import 'package:shimmer_ai/src/widgets/shimmer_placeholders.dart';
 
 /// Widget that recursively replaces the child widget tree with
 /// shimmer placeholders of correct type, shape, and size.
@@ -36,7 +36,8 @@ class ShimmerAiWrapper extends StatelessWidget {
     // Recur through Column, Row, Flex
     else if (w is Column) {
       return Column(
-        key: w.key, // Preserve key if any
+        key: w.key,
+        // Preserve key if any
         mainAxisAlignment: w.mainAxisAlignment,
         mainAxisSize: w.mainAxisSize,
         crossAxisAlignment: w.crossAxisAlignment,
@@ -46,7 +47,8 @@ class ShimmerAiWrapper extends StatelessWidget {
       );
     } else if (w is Row) {
       return Row(
-        key: w.key, // Preserve key if any
+        key: w.key,
+        // Preserve key if any
         mainAxisAlignment: w.mainAxisAlignment,
         mainAxisSize: w.mainAxisSize,
         crossAxisAlignment: w.crossAxisAlignment,

@@ -1,8 +1,8 @@
 name: shimmer_ai
 description: >
-  Effortless shimmer effects and skeleton loaders for Flutter widgets using `.withShimmerAi()` — smooth, customizable, and dependency-free.
+  Effortlessly add beautiful shimmer loading effects & skeleton screens to any Flutter widget. Highly customizable, no external shimmer package needed.
 
-version: 1.2.0
+version: 1.2.1+1
 homepage: https://github.com/karanpadaliya/shimmer_ai
 repository: https://github.com/karanpadaliya/shimmer_ai
 issue_tracker: https://github.com/karanpadaliya/shimmer_ai/issues
@@ -24,8 +24,8 @@ flutter:
   uses-material-design: true
 
 topics:
+  - flutter
   - shimmer
   - skeleton-loader
   - loading-animation
   - flutter-ui
-  - ux

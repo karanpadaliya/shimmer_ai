@@ -39,7 +39,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  shimmer_ai: ^1.2.0 # Use latest version
+  shimmer_ai: ^1.2.1 # Use latest version
 ```
 
 Then run:

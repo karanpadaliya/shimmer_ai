@@ -189,11 +189,13 @@ class _CustomShimmerEffectState
                 widget.baseColor,
               ],
               stops: const [0.0, 0.5, 1.0],
-              begin: begin, // Use calculated begin
-              end: end, // Use calculated end
-              transform: widget.angle != 0.0
-                  ? GradientRotation(widget.angle)
-                  : null, // Apply rotation here
+              begin: begin,
+              // Use calculated begin
+              end: end,
+              // Use calculated end
+              transform:
+                  widget.angle != 0.0 ? GradientRotation(widget.angle) : null,
+              // Apply rotation here
               tileMode:
                   TileMode.clamp, // tileMode is a property of LinearGradient
             );

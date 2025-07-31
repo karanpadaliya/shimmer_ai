@@ -19,8 +19,7 @@ void main() {
       await tester.pumpWidget(widgetUnderTest);
 
       expect(find.byType(ShimmerTextPlaceholder), findsOneWidget);
-      expect(find.byType(CustomShimmerEffect),
-          findsOneWidget); // Changed to CustomShimmerEffect
+      expect(find.byType(CustomShimmerEffect), findsOneWidget);
       expect(find.text(testText), findsNothing);
     });
 
@@ -37,8 +36,7 @@ void main() {
       await tester.pumpWidget(widgetUnderTest);
 
       expect(find.byType(ShimmerTextPlaceholder), findsNothing);
-      expect(find.byType(CustomShimmerEffect),
-          findsNothing); // Changed to CustomShimmerEffect
+      expect(find.byType(CustomShimmerEffect), findsNothing);
       expect(find.text(testText), findsOneWidget);
     });
 
@@ -61,8 +59,7 @@ void main() {
 
       expect(find.byType(ShimmerBoxPlaceholder), findsNWidgets(2));
       expect(find.byType(ShimmerTextPlaceholder), findsOneWidget);
-      expect(find.byType(CustomShimmerEffect),
-          findsNWidgets(3)); // Changed to CustomShimmerEffect
+      expect(find.byType(CustomShimmerEffect), findsNWidgets(3));
       expect(find.byType(Text), findsNothing);
       expect(find.byType(CircleAvatar), findsNothing);
     });
@@ -84,12 +81,11 @@ void main() {
 
       await tester.pumpWidget(widgetUnderTest);
 
-      final customShimmerEffectFinder =
-          find.byType(CustomShimmerEffect); // Changed to CustomShimmerEffect
+      final customShimmerEffectFinder = find.byType(CustomShimmerEffect);
       expect(customShimmerEffectFinder, findsOneWidget);
 
-      final customShimmerEffect = tester.widget<CustomShimmerEffect>(
-          customShimmerEffectFinder); // Changed to CustomShimmerEffect
+      final customShimmerEffect =
+          tester.widget<CustomShimmerEffect>(customShimmerEffectFinder);
       expect(customShimmerEffect.baseColor, customBaseColor);
       expect(customShimmerEffect.highlightColor, customHighlightColor);
     });
@@ -111,12 +107,11 @@ void main() {
 
       await tester.pumpWidget(widgetUnderTest);
 
-      final customShimmerEffectFinder =
-          find.byType(CustomShimmerEffect); // Changed to CustomShimmerEffect
+      final customShimmerEffectFinder = find.byType(CustomShimmerEffect);
       expect(customShimmerEffectFinder, findsOneWidget);
 
-      final customShimmerEffect = tester.widget<CustomShimmerEffect>(
-          customShimmerEffectFinder); // Changed to CustomShimmerEffect
+      final customShimmerEffect =
+          tester.widget<CustomShimmerEffect>(customShimmerEffectFinder);
       expect(customShimmerEffect.duration, customDuration);
       expect(customShimmerEffect.direction, customDirection);
     });
@@ -138,12 +133,11 @@ void main() {
 
       await tester.pumpWidget(widgetUnderTest);
 
-      final customShimmerEffectFinder =
-          find.byType(CustomShimmerEffect); // Changed to CustomShimmerEffect
+      final customShimmerEffectFinder = find.byType(CustomShimmerEffect);
       expect(customShimmerEffectFinder, findsOneWidget);
 
-      final customShimmerEffect = tester.widget<CustomShimmerEffect>(
-          customShimmerEffectFinder); // Changed to CustomShimmerEffect
+      final customShimmerEffect =
+          tester.widget<CustomShimmerEffect>(customShimmerEffectFinder);
       expect(customShimmerEffect.angle, customAngle);
       expect(customShimmerEffect.repeat, customRepeat);
     });
@@ -165,12 +159,11 @@ void main() {
 
       await tester.pumpWidget(widgetUnderTest);
 
-      final customShimmerEffectFinder =
-          find.byType(CustomShimmerEffect); // Changed to CustomShimmerEffect
+      final customShimmerEffectFinder = find.byType(CustomShimmerEffect);
       expect(customShimmerEffectFinder, findsOneWidget);
 
-      final customShimmerEffect = tester.widget<CustomShimmerEffect>(
-          customShimmerEffectFinder); // Changed to CustomShimmerEffect
+      final customShimmerEffect =
+          tester.widget<CustomShimmerEffect>(customShimmerEffectFinder);
       expect(customShimmerEffect.customGradient, customGradient);
     });
   });
