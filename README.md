@@ -1,138 +1,177 @@
-<h1>✨ shimmer_ai – Effortless Flutter Shimmer with the `.withShimmerAi()` Extension</h1>
+# ✨ shimmer_ai – Effortless Flutter Shimmer
 
-<p><strong>shimmer_ai</strong> is a lightweight, zero-configuration Flutter package that instantly adds beautiful, smooth shimmer loading animations to <strong>any widget</strong> — Text, Images, Buttons, Cards, ListTiles, and more — with <strong>just one line of code</strong>!</p>
+**Instantly Create Skeleton Screens & Animated Loading Effects with `.withShimmerAi()`**
 
-<p>Perfect for creating stunning skeleton loaders, loading placeholders, and polished preload UI states that delight users and keep your app feeling responsive and professional.</p>
+**shimmer_ai** is a lightweight, zero-configuration Flutter package that instantly adds beautiful, smooth **shimmer loading effects** and **skeleton screens** to any widget — including Text, Images, Buttons, Cards, ListTiles, and more — with **just one line of code**! ✨
 
-<hr>
+Perfect for creating engaging **skeleton UIs**, dynamic **content placeholders**, and polished preload states that enhance **UI/UX**, delight users, and make your app feel incredibly responsive and professional.
 
-<h2>🚀 Key Features</h2>
+---
 
-<ul>
-  <li>⚡ <strong>Universal shimmer wrapper:</strong> Apply shimmer on <em>any</em> widget type — no need to build custom placeholders</li>
-  <li>🧠 <strong>Minimal & intuitive API:</strong> Simply add <code>.withShimmerAi(loading: true)</code> and you’re done!</li>
-  <li>🎨 <strong>Customizable shimmer styles:</strong> Control base color, highlight color, shimmer radius, and animation speed</li>
-  <li>⚙️ <strong>Zero setup required:</strong> Built for instant integration and lightning-fast performance</li>
-  <li>📱 <strong>Responsive & adaptive:</strong> Works seamlessly on all screen sizes and Flutter platforms (mobile, web, desktop)</li>
-  <li>✅ <strong>Production-ready:</strong> Fully tested, null-safe, and easy to maintain</li>
-</ul>
+## 🚀 Key Features & Benefits
 
-<hr>
+- ⚡️ **Universal Application:** Apply **shimmer animations** on *any* Flutter widget – no need to build custom placeholder widgets.
+- 🧠 **Intuitive & Minimal API:** Simply add `.withShimmerAi(loading: true)` to any widget for instant **animated loading indicators**.
+- 🎨 **Extensive Customization:** Fine-tune your **shimmer effect** with:
+    - `baseColor`, `highlightColor`: Set shimmer colors
+    - `duration`: Control animation speed
+    - `direction`: Choose animation direction (LTR, RTL, TTB, BTT)
+    - `angle`: Control shimmer tilt
+    - `borderRadius`: Customize shape
+    - `repeat`, `loopCount`: Manage animation loop
+    - `customGradient`: Define a custom gradient
+- ⚙️ **Zero External Dependencies:** Built entirely inside **shimmer_ai**, no third-party packages needed.
+- ✅ **High Performance & Production-Ready**
+- 📱 **Responsive & Adaptive:** Works across mobile, web, desktop
+- 💡 **Ideal for:**
+    - Loading states
+    - Skeleton UIs / Skeleton screens
+    - Content placeholders
+    - Onboarding animations
+    - List and grid loaders
+    - Any async data loading
 
-<h2>🎉 Getting Started</h2>
+---
 
-<p>Add the package to your project's <code>pubspec.yaml</code>:</p>
+## 🎉 Getting Started
 
-<pre><code>dependencies:
-  shimmer_ai: ^1.1.0
-</code></pre>
+Add to your `pubspec.yaml`:
 
-<p>Then run:</p>
+```yaml
+dependencies:
+  shimmer_ai: ^1.2.0 # Use latest version
+```
 
-<pre><code>flutter pub get
-</code></pre>
+Then run:
 
-<hr>
+```bash
+flutter pub get
+```
 
-<h2>💡 Simple Usage</h2>
+---
 
-<p>Import the package in your Dart file:</p>
+## 💡 Simple Usage
 
-<pre><code>import 'package:shimmer_ai/shimmer_ai.dart';
-</code></pre>
+Import the package:
 
-<p>Wrap any widget with the <code>.withShimmerAi()</code> extension method:</p>
+```dart
+import 'package:shimmer_ai/shimmer_ai.dart';
+```
 
-<pre><code>Text('Loading Data').withShimmerAi(loading: true);
-</code></pre>
+Use `.withShimmerAi()` on any widget:
 
-<hr>
+```dart
+// Example: Text shimmer
+Text('Loading Data').withShimmerAi(loading: isLoading);
 
-<h2>🔧 Example Usage</h2>
+// Example: Card shimmer
+Card(
+  child: Column(
+    children: [
+      // ... content
+    ],
+  ),
+).withShimmerAi(loading: isFetchingData);
+```
 
-<pre><code>Column(
-  children: [
-    // Shimmer on simple text
-    Text('Welcome to shimmer_ai').withShimmerAi(loading: isLoading),
+---
 
-    // Shimmer on images
-    Image.network('https://example.com/avatar.jpg').withShimmerAi(loading: isLoading),
+## 🔧 Advanced Usage & Customization
 
-    // Shimmer wrapping complex widgets like Cards or ListTiles
-    Card(
-      child: ListTile(
-        leading: CircleAvatar(backgroundImage: NetworkImage('https://example.com/profile.jpg')),
-        title: Text('John Doe'),
-        subtitle: Text('Software Developer'),
-      ),
-    ).withShimmerAi(loading: isLoading),
-  ],
-);
-</code></pre>
+### Direct Parameters
 
-<hr>
-
-<h2>🎨 Customizing Shimmer Appearance</h2>
-
-<p>Control shimmer color, border radius, and animation duration easily:</p>
-
-<pre><code>Text('Please wait...')
+```dart
+Text('Loading...')
   .withShimmerAi(
     loading: true,
     baseColor: Colors.grey.shade300,
     highlightColor: Colors.grey.shade100,
     borderRadius: 16,
-    duration: const Duration(seconds: 2),
+    duration: Duration(seconds: 2),
+    direction: ShimmerDirection.rtl,
+    angle: 0.5,
+    repeat: false,
+    loopCount: 3,
   );
-</code></pre>
+```
 
-<hr>
+### Using `ShimmerAiConfig`
 
-<h2>📦 Full Example App</h2>
+```dart
+const myCustomShimmerConfig = ShimmerAiConfig(
+  baseColor: Colors.deepPurple,
+  highlightColor: Colors.purpleAccent,
+  duration: Duration(milliseconds: 2500),
+  direction: ShimmerDirection.btt,
+  angle: -0.7,
+  borderRadius: 8,
+);
 
-<p>Try out the fully working demo bundled in the <code>example</code> folder:</p>
+CircleAvatar(
+  radius: 50,
+).withShimmerAi(
+  loading: true,
+  config: myCustomShimmerConfig,
+);
+```
 
-<pre><code>git clone https://github.com/karanpadaliya/shimmer_ai.git
-cd shimmer_ai/example
-flutter run
-</code></pre>
+You can override config values too:
 
-<p>Explore real-world use cases showing shimmer with list views, cards, avatars, buttons, and more.</p>
+```dart
+Container(
+  width: 150,
+  height: 30,
+).withShimmerAi(
+  loading: true,
+  config: myCustomShimmerConfig,
+  direction: ShimmerDirection.ltr,
+);
+```
 
-<hr>
+### Custom Gradient Shimmer
 
-<h2>❓ Support & Contributions</h2>
+```dart
+Container(
+  width: 280,
+  height: 60,
+  alignment: Alignment.center,
+  decoration: BoxDecoration(
+    color: Colors.blueGrey,
+    borderRadius: BorderRadius.circular(10),
+  ),
+  child: const Text('Animated Placeholder'),
+).withShimmerAi(
+  loading: true,
+  customGradient: LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [
+      Colors.cyan.shade100,
+      Colors.teal.shade50,
+      Colors.cyan.shade100,
+    ],
+    stops: [0.0, 0.5, 1.0],
+  ),
+  duration: Duration(seconds: 3),
+  angle: 0.8,
+);
+```
 
-<ul>
-  <li>Found a bug or want a new feature? <a href="https://github.com/karanpadaliya/shimmer_ai/issues">Open an Issue here</a></li>
-  <li>Contributions, improvements, and pull requests are always welcome!</li>
-  <li>Maintained by <strong>Karan Padaliya</strong> – passionate Flutter developer and enthusiast.</li>
-</ul>
+---
 
-<hr>
+## 📸 Screenshots & Examples
 
-<h2>📃 License</h2>
+Check the [example directory](https://github.com/karanpadaliya/shimmer_ai/tree/main/example) for full demos.
 
-<p>This project is <strong>MIT licensed</strong> – see the <a href="https://github.com/karanpadaliya/shimmer_ai/blob/main/LICENSE">LICENSE</a> file for details.</p>
+---
 
-<hr>
+## 🤝 Contributing
 
-<p>⭐️ If you enjoy using <strong>shimmer_ai</strong>, please give it a star on <a href="https://pub.dev/packages/shimmer_ai">pub.dev</a> and <a href="https://github.com/karanpadaliya/shimmer_ai">GitHub</a>. Your support means a lot!</p>
+We welcome PRs, bug reports, and suggestions! Feel free to open an issue or pull request on [GitHub](https://github.com/karanpadaliya/shimmer_ai).
 
-<hr>
+---
 
-<p><em>#flutter #shimmer #skeletonloader #loadinganimation #flutterui #flutterpackage #flutteropensource</em></p>
+## 📄 License
 
-<hr>
-
-<h2>Why Choose shimmer_ai?</h2>
-
-<p>Most shimmer packages require you to manually build skeleton placeholders for every widget, which is tedious and error-prone.</p>
-
-<p><strong>shimmer_ai</strong> does all the hard work for you by <em>automatically</em> detecting widget types and applying matching shimmer placeholders — saving you hours of development time while keeping your code clean and maintainable.</p>
-
-<hr>
-
-<h2>Contact</h2>
-
-<p>For questions or guidance, feel free to reach out on the GitHub repository or open an issue. Happy Fluttering! 🚀</p>
+MIT © [karanpadaliya](https://github.com/karanpadaliya)  
+[View License](https://github.com/karanpadaliya/shimmer_ai/blob/main/LICENSE)

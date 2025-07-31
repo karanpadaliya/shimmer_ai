@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - July 31, 2025
+**Released:** July 31, 2025
+
+### Added
+- ✨ **Enhanced Customization:** Introduced `ShimmerAiConfig` for granular control over shimmer appearance.
+- `baseColor`, `highlightColor`: Control shimmer colors.
+- `duration`: Adjust animation speed.
+- `direction`: Set shimmer animation direction (LTR, RTL, TTB, BTT).
+- `angle`: Define the angle of the shimmer effect.
+- `borderRadius`: Customize border radius of rectangular placeholders.
+- `repeat`: Control continuous looping.
+- `loopCount`: Specify the number of animation loops.
+- `customGradient`: Provide a custom `LinearGradient` for unique effects.
+- 🧪 **New Test Cases:** Added comprehensive widget tests for all new customization parameters to ensure functionality and prevent regressions, now testing the internal shimmer implementation.
+
+### Changed
+- ♻️ **Refactored API:** `withShimmerAi()` extension now accepts `ShimmerAiConfig` or individual parameters for flexibility.
+- ⚙️ **Improved Placeholder Logic:** Enhanced `ShimmerAiWrapper` and `ShimmerPlaceholders` to utilize `ShimmerAiConfig` for dynamic rendering.
+- 📏 **Smarter Sizing:** Refined `size_utils.dart` to provide more accurate estimations for placeholder dimensions based on original widgets (e.g., Text, Container, SizedBox).
+- 📚 **Updated Example:** `example/lib/main.dart` now showcases all new customization options with various scenarios.
+
+### Fixed
+- 🐛 Ensured all parameters propagate correctly from `withShimmerAi` to the underlying custom shimmer widget.
+- 🐛 Improved handling of different widget types within `ShimmerAiWrapper` for more consistent placeholder generation.
+
+## [1.1.1] - July 25, 2025
+**Released:** July 25, 2025
+
+### Changed
+- 🔧 Bug Fixed.
+
 ## [1.1.0] - July 25, 2025
 **Released:** July 25, 2025
 

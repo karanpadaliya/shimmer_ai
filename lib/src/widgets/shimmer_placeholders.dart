@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
-import '../utils/size_utils.dart';
+import 'package:shimmer_ai/src/shimmer_ai_config.dart';
+import 'package:shimmer_ai/src/utils/size_utils.dart';
 
 /// Shows a shimmer placeholder styled as a horizontal line,
 /// mimicking a Text widget in size and width.
 class ShimmerTextPlaceholder extends StatelessWidget {
   final Widget original;
+  final ShimmerAiConfig config;
 
-  const ShimmerTextPlaceholder({required this.original, super.key});
+  const ShimmerTextPlaceholder({required this.original, required this.config, super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Try to estimate width and height for the Text widget,
-    // fallback to default values if not possible.
     double? width;
     double? height;
 
@@ -25,13 +24,14 @@ class ShimmerTextPlaceholder extends StatelessWidget {
     width ??= 120;
     height ??= 16;
 
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
+    return config.buildShimmer(
       child: Container(
         width: width,
         height: height,
-        color: Colors.white,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(config.borderRadius),
+        ),
         margin: const EdgeInsets.symmetric(vertical: 4),
       ),
     );
@@ -43,13 +43,17 @@ class ShimmerTextPlaceholder extends StatelessWidget {
 class ShimmerBoxPlaceholder extends StatelessWidget {
   final Widget? original;
   final bool isCircle;
+  final ShimmerAiConfig config;
 
-  const ShimmerBoxPlaceholder(
-      {this.original, this.isCircle = false, super.key});
+  const ShimmerBoxPlaceholder({
+    this.original,
+    this.isCircle = false,
+    required this.config,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // Best-effort: attempt to get size from the original widget, if possible.
     double? width;
     double? height;
 
@@ -58,19 +62,16 @@ class ShimmerBoxPlaceholder extends StatelessWidget {
       height = getWidgetHeight(original!);
     }
 
-    // Use sensible defaults depending on shape.
     width ??= isCircle ? 40 : 100;
     height ??= isCircle ? 40 : 20;
 
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
+    return config.buildShimmer(
       child: Container(
         width: width,
         height: height,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: isCircle ? null : BorderRadius.circular(10),
+          borderRadius: isCircle ? null : BorderRadius.circular(config.borderRadius),
           shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
         ),
         margin: const EdgeInsets.all(4),
