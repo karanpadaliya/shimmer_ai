@@ -39,8 +39,10 @@ extension ShimmerAiExtension on Widget {
     // Merge individual parameters into the config
     final effectiveConfig = ShimmerAiConfig(
       baseColor: baseColor ?? config?.baseColor ?? const Color(0xFFE0E0E0),
-      highlightColor: highlightColor ?? config?.highlightColor ?? const Color(0xFFF5F5F5),
-      duration: duration ?? config?.duration ?? const Duration(milliseconds: 1500),
+      highlightColor:
+          highlightColor ?? config?.highlightColor ?? const Color(0xFFF5F5F5),
+      duration:
+          duration ?? config?.duration ?? const Duration(milliseconds: 1500),
       direction: direction ?? config?.direction ?? ShimmerDirection.ltr,
       angle: angle ?? config?.angle ?? 0.0,
       borderRadius: borderRadius ?? config?.borderRadius ?? 10.0,

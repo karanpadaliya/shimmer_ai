@@ -49,7 +49,8 @@ class ShimmerAiConfig {
 
   const ShimmerAiConfig({
     this.baseColor = const Color(0xFFE0E0E0), // Equivalent to Colors.grey[300]!
-    this.highlightColor = const Color(0xFFF5F5F5), // Equivalent to Colors.grey[100]!
+    this.highlightColor =
+        const Color(0xFFF5F5F5), // Equivalent to Colors.grey[100]!
     this.duration = const Duration(milliseconds: 1500),
     this.direction = ShimmerDirection.ltr,
     this.angle = 0.0, // Default to horizontal shimmer
@@ -61,7 +62,8 @@ class ShimmerAiConfig {
 
   /// Builds a shimmer widget based on the configuration.
   Widget buildShimmer({required Widget child}) {
-    return CustomShimmerEffect( // Changed to CustomShimmerEffect
+    return CustomShimmerEffect(
+      // Changed to CustomShimmerEffect
       baseColor: baseColor,
       highlightColor: highlightColor,
       duration: duration,
@@ -77,7 +79,8 @@ class ShimmerAiConfig {
 
 /// A custom widget to apply the shimmer animation effect.
 /// Replicates the functionality of the 'shimmer' package without direct dependency.
-class CustomShimmerEffect extends StatefulWidget { // Renamed to CustomShimmerEffect
+class CustomShimmerEffect extends StatefulWidget {
+  // Renamed to CustomShimmerEffect
   const CustomShimmerEffect({
     required this.baseColor,
     required this.highlightColor,
@@ -104,8 +107,10 @@ class CustomShimmerEffect extends StatefulWidget { // Renamed to CustomShimmerEf
   _CustomShimmerEffectState createState() => _CustomShimmerEffectState();
 }
 
-class _CustomShimmerEffectState extends State<CustomShimmerEffect> // Changed to CustomShimmerEffect
-    with SingleTickerProviderStateMixin {
+class _CustomShimmerEffectState
+    extends State<CustomShimmerEffect> // Changed to CustomShimmerEffect
+    with
+        SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -125,7 +130,8 @@ class _CustomShimmerEffectState extends State<CustomShimmerEffect> // Changed to
   }
 
   @override
-  void didUpdateWidget(CustomShimmerEffect oldWidget) { // Changed to CustomShimmerEffect
+  void didUpdateWidget(CustomShimmerEffect oldWidget) {
+    // Changed to CustomShimmerEffect
     super.didUpdateWidget(oldWidget);
     if (widget.duration != oldWidget.duration ||
         widget.repeat != oldWidget.repeat ||
@@ -184,9 +190,12 @@ class _CustomShimmerEffectState extends State<CustomShimmerEffect> // Changed to
               ],
               stops: const [0.0, 0.5, 1.0],
               begin: begin, // Use calculated begin
-              end: end,     // Use calculated end
-              transform: widget.angle != 0.0 ? GradientRotation(widget.angle) : null, // Apply rotation here
-              tileMode: TileMode.clamp, // tileMode is a property of LinearGradient
+              end: end, // Use calculated end
+              transform: widget.angle != 0.0
+                  ? GradientRotation(widget.angle)
+                  : null, // Apply rotation here
+              tileMode:
+                  TileMode.clamp, // tileMode is a property of LinearGradient
             );
 
         return ShaderMask(

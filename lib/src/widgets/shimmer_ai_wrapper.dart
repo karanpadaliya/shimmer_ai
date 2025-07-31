@@ -12,7 +12,8 @@ class ShimmerAiWrapper extends StatelessWidget {
   final ShimmerAiConfig config;
 
   /// Wrap [child] for shimmer effect generation.
-  const ShimmerAiWrapper({super.key, required this.child, required this.config});
+  const ShimmerAiWrapper(
+      {super.key, required this.child, required this.config});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +28,10 @@ class ShimmerAiWrapper extends StatelessWidget {
       return ShimmerTextPlaceholder(original: w, config: config);
     }
     // Replace Image-like widgets with shimmer box (handles avatars too)
-    else if (isImageWidget(w) || isAvatar(w)) { // Combine for simplicity
-      return ShimmerBoxPlaceholder(original: w, isCircle: isAvatar(w), config: config);
+    else if (isImageWidget(w) || isAvatar(w)) {
+      // Combine for simplicity
+      return ShimmerBoxPlaceholder(
+          original: w, isCircle: isAvatar(w), config: config);
     }
     // Recur through Column, Row, Flex
     else if (w is Column) {
@@ -41,8 +44,7 @@ class ShimmerAiWrapper extends StatelessWidget {
         verticalDirection: w.verticalDirection,
         children: w.children.map(_transform).toList(),
       );
-    }
-    else if (w is Row) {
+    } else if (w is Row) {
       return Row(
         key: w.key, // Preserve key if any
         mainAxisAlignment: w.mainAxisAlignment,
@@ -52,8 +54,8 @@ class ShimmerAiWrapper extends StatelessWidget {
         verticalDirection: w.verticalDirection,
         children: w.children.map(_transform).toList(),
       );
-    }
-    else if (w is Flex) { // Catch general Flex (Column/Row inherit from Flex)
+    } else if (w is Flex) {
+      // Catch general Flex (Column/Row inherit from Flex)
       return Flex(
         key: w.key,
         direction: w.direction,

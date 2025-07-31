@@ -8,7 +8,8 @@ class ShimmerTextPlaceholder extends StatelessWidget {
   final Widget original;
   final ShimmerAiConfig config;
 
-  const ShimmerTextPlaceholder({required this.original, required this.config, super.key});
+  const ShimmerTextPlaceholder(
+      {required this.original, required this.config, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +72,8 @@ class ShimmerBoxPlaceholder extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: isCircle ? null : BorderRadius.circular(config.borderRadius),
+          borderRadius:
+              isCircle ? null : BorderRadius.circular(config.borderRadius),
           shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
         ),
         margin: const EdgeInsets.all(4),

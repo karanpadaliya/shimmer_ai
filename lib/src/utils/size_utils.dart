@@ -10,14 +10,16 @@ double estimateTextWidth(Text text, {double defaultWidth = 120.0}) {
   // A more robust estimation for character width, considering common fonts.
   // Each character approx 0.55-0.65 * fontSize (rough average for varied fonts).
   final estimatedCharWidth = fontSize * 0.6;
-  return (content.length * estimatedCharWidth).clamp(20.0, defaultWidth * 2); // Clamp to prevent excessively long placeholders
+  return (content.length * estimatedCharWidth).clamp(
+      20.0, defaultWidth * 2); // Clamp to prevent excessively long placeholders
 }
 
 /// Estimate height based on font size for Text widgets.
 double estimateTextHeight(Text text, {double fontSize = 14.0}) {
   final style = text.style;
   // Use 1.2 * font size for typical line height, considering ascenders/descenders
-  return (style?.fontSize ?? fontSize) * (style?.height ?? 1.2); // Use style.height if available
+  return (style?.fontSize ?? fontSize) *
+      (style?.height ?? 1.2); // Use style.height if available
 }
 
 /// Returns the fixed width of a widget, if set, else null.
