@@ -21,7 +21,7 @@ extension ShimmerAiExtension on Widget {
   Widget withShimmerAi({
     required bool loading,
     ShimmerAiConfig? config,
-    // Individual customization parameters
+    // Individual customization parameters for shimmer
     Color? baseColor,
     Color? highlightColor,
     Duration? duration,
@@ -31,24 +31,45 @@ extension ShimmerAiExtension on Widget {
     bool? repeat,
     int? loopCount,
     LinearGradient? customGradient,
+    // New UI customization parameters for the placeholder
+    double? width,
+    double? height,
+    EdgeInsetsGeometry? margin,
+    EdgeInsetsGeometry? padding,
+    AlignmentGeometry? alignment,
+    BoxConstraints? constraints,
+    Decoration? decoration,
   }) {
     if (!loading) {
       return this;
     }
 
-    // Merge individual parameters into the config
+    // Create a temporary default config to access default values easily.
+    final defaultConfig = const ShimmerAiConfig();
+
+    // Merge individual parameters into the config.
+    // The ?? operator is used to provide a fallback value.
+    // The final fallback is the default value from ShimmerAiConfig.
     final effectiveConfig = ShimmerAiConfig(
-      baseColor: baseColor ?? config?.baseColor ?? const Color(0xFFE0E0E0),
-      highlightColor:
-          highlightColor ?? config?.highlightColor ?? const Color(0xFFF5F5F5),
-      duration:
-          duration ?? config?.duration ?? const Duration(milliseconds: 1500),
-      direction: direction ?? config?.direction ?? ShimmerDirection.ltr,
-      angle: angle ?? config?.angle ?? 0.0,
-      borderRadius: borderRadius ?? config?.borderRadius ?? 10.0,
-      repeat: repeat ?? config?.repeat ?? true,
+      baseColor: baseColor ?? config?.baseColor ?? defaultConfig.baseColor,
+      highlightColor: highlightColor ??
+          config?.highlightColor ??
+          defaultConfig.highlightColor,
+      duration: duration ?? config?.duration ?? defaultConfig.duration,
+      direction: direction ?? config?.direction ?? defaultConfig.direction,
+      angle: angle ?? config?.angle ?? defaultConfig.angle,
+      borderRadius:
+          borderRadius ?? config?.borderRadius ?? defaultConfig.borderRadius,
+      repeat: repeat ?? config?.repeat ?? defaultConfig.repeat,
       loopCount: loopCount ?? config?.loopCount,
       customGradient: customGradient ?? config?.customGradient,
+      width: width ?? config?.width,
+      height: height ?? config?.height,
+      margin: margin ?? config?.margin,
+      padding: padding ?? config?.padding,
+      alignment: alignment ?? config?.alignment,
+      constraints: constraints ?? config?.constraints,
+      decoration: decoration ?? config?.decoration,
     );
 
     return ShimmerAiWrapper(child: this, config: effectiveConfig);

@@ -47,106 +47,72 @@ class ShimmerAiConfig {
   /// If provided, [baseColor] and [highlightColor] will be ignored.
   final LinearGradient? customGradient;
 
+  // New UI parameters for placeholder customization
+  final double? width;
+  final double? height;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
+  final AlignmentGeometry? alignment;
+  final BoxConstraints? constraints;
+  final Decoration? decoration;
+
+  /// Configuration for the shimmer effect, controlling its appearance and animation.
   const ShimmerAiConfig({
-    this.baseColor = const Color(0xFFE0E0E0), // Equivalent to Colors.grey[300]!
-    this.highlightColor =
-        const Color(0xFFF5F5F5), // Equivalent to Colors.grey[100]!
+    this.baseColor = const Color(0xFFE0E0E0),
+    this.highlightColor = const Color(0xFFF5F5F5),
     this.duration = const Duration(milliseconds: 1500),
     this.direction = ShimmerDirection.ltr,
-    this.angle = 0.0, // Default to horizontal shimmer
+    this.angle = 0.0,
     this.borderRadius = 10.0,
     this.repeat = true,
     this.loopCount,
     this.customGradient,
+    this.width,
+    this.height,
+    this.margin,
+    this.padding,
+    this.alignment,
+    this.constraints,
+    this.decoration,
   });
 
-  /// Builds a shimmer widget based on the configuration.
-  Widget buildShimmer({required Widget child}) {
-    return CustomShimmerEffect(
-      // Changed to CustomShimmerEffect
-      baseColor: baseColor,
-      highlightColor: highlightColor,
-      duration: duration,
-      direction: direction,
-      angle: angle,
-      repeat: repeat,
-      loopCount: loopCount,
-      customGradient: customGradient,
+  /// Builds a [Shimmer] widget to apply the shimmer effect to a child widget.
+  Widget buildShimmer({
+    required Widget child,
+  }) {
+    return _Shimmer(
+      config: this,
       child: child,
     );
   }
 }
 
-/// A custom widget to apply the shimmer animation effect.
-/// Replicates the functionality of the 'shimmer' package without direct dependency.
-class CustomShimmerEffect extends StatefulWidget {
-  // Renamed to CustomShimmerEffect
-  const CustomShimmerEffect({
-    required this.baseColor,
-    required this.highlightColor,
-    required this.duration,
-    required this.direction,
-    required this.angle,
-    required this.repeat,
-    this.loopCount,
-    this.customGradient,
+/// The internal widget that provides the shimmer effect.
+class _Shimmer extends StatefulWidget {
+  final ShimmerAiConfig config;
+  final Widget child;
+
+  const _Shimmer({
+    required this.config,
     required this.child,
   });
 
-  final Color baseColor;
-  final Color highlightColor;
-  final Duration duration;
-  final ShimmerDirection direction;
-  final double angle;
-  final bool repeat;
-  final int? loopCount;
-  final LinearGradient? customGradient;
-  final Widget child;
-
   @override
-  _CustomShimmerEffectState createState() => _CustomShimmerEffectState();
+  State<_Shimmer> createState() => _ShimmerState();
 }
 
-class _CustomShimmerEffectState
-    extends State<CustomShimmerEffect> // Changed to CustomShimmerEffect
-    with
-        SingleTickerProviderStateMixin {
+class _ShimmerState extends State<_Shimmer> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: widget.duration);
-
-    if (widget.repeat) {
-      if (widget.loopCount != null && widget.loopCount! > 0) {
-        _controller.repeat(reverse: false, count: widget.loopCount);
-      } else {
-        _controller.repeat(reverse: false); // Infinite loop
-      }
-    } else {
-      _controller.forward();
-    }
-  }
-
-  @override
-  void didUpdateWidget(CustomShimmerEffect oldWidget) {
-    // Changed to CustomShimmerEffect
-    super.didUpdateWidget(oldWidget);
-    if (widget.duration != oldWidget.duration ||
-        widget.repeat != oldWidget.repeat ||
-        widget.loopCount != oldWidget.loopCount) {
-      _controller.duration = widget.duration;
-      if (widget.repeat) {
-        if (widget.loopCount != null && widget.loopCount! > 0) {
-          _controller.repeat(reverse: false, count: widget.loopCount);
-        } else {
-          _controller.repeat(reverse: false);
-        }
-      } else {
-        _controller.forward();
-      }
-    }
+    _controller = AnimationController.unbounded(vsync: this)
+      ..repeat(
+        period: widget.config.duration,
+        min: -0.5,
+        max: 1.5,
+      );
   }
 
   @override
@@ -157,19 +123,24 @@ class _CustomShimmerEffectState
 
   @override
   Widget build(BuildContext context) {
+    // Determine the gradient's begin and end alignments based on the direction.
+    // The animation controller's value is used to shift the gradient.
+    // _controller.value ranges from -0.5 to 1.5
+    Alignment begin, end;
+    final child = widget.child;
+
     return AnimatedBuilder(
       animation: _controller,
-      builder: (context, child) {
-        // Calculate gradient start and end points based on animation value and direction
-        Alignment begin, end;
-        switch (widget.direction) {
+      builder: (context, _) {
+        // Handle all four directions
+        switch (widget.config.direction) {
           case ShimmerDirection.ltr:
-            begin = Alignment(-1.0 + 2.0 * _controller.value, 0.0);
-            end = Alignment(0.0 + 2.0 * _controller.value, 0.0);
+            begin = Alignment(0.0 - 2.0 * _controller.value, 0.0);
+            end = Alignment(1.0 - 2.0 * _controller.value, 0.0);
             break;
           case ShimmerDirection.rtl:
-            begin = Alignment(1.0 - 2.0 * _controller.value, 0.0);
-            end = Alignment(0.0 - 2.0 * _controller.value, 0.0);
+            begin = Alignment(1.0 + 2.0 * _controller.value, 0.0);
+            end = Alignment(0.0 + 2.0 * _controller.value, 0.0);
             break;
           case ShimmerDirection.ttb:
             begin = Alignment(0.0, -1.0 + 2.0 * _controller.value);
@@ -181,23 +152,21 @@ class _CustomShimmerEffectState
             break;
         }
 
-        final gradient = widget.customGradient ??
+        final gradient = widget.config.customGradient ??
             LinearGradient(
               colors: [
-                widget.baseColor,
-                widget.highlightColor,
-                widget.baseColor,
+                widget.config.baseColor,
+                widget.config.highlightColor,
+                widget.config.baseColor,
               ],
               stops: const [0.0, 0.5, 1.0],
-              begin: begin,
-              // Use calculated begin
-              end: end,
-              // Use calculated end
+              begin: begin, // Use calculated begin
+              end: end, // Use calculated end
               transform:
-                  widget.angle != 0.0 ? GradientRotation(widget.angle) : null,
+              widget.config.angle != 0.0 ? GradientRotation(widget.config.angle) : null,
               // Apply rotation here
               tileMode:
-                  TileMode.clamp, // tileMode is a property of LinearGradient
+              TileMode.clamp, // tileMode is a property of LinearGradient
             );
 
         return ShaderMask(
@@ -210,7 +179,6 @@ class _CustomShimmerEffectState
           child: child,
         );
       },
-      child: widget.child,
     );
   }
 }

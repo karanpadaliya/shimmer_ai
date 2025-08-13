@@ -12,8 +12,7 @@ class ShimmerAiWrapper extends StatelessWidget {
   final ShimmerAiConfig config;
 
   /// Wrap [child] for shimmer effect generation.
-  const ShimmerAiWrapper(
-      {super.key, required this.child, required this.config});
+  const ShimmerAiWrapper({super.key, required this.child, required this.config});
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +35,7 @@ class ShimmerAiWrapper extends StatelessWidget {
     // Recur through Column, Row, Flex
     else if (w is Column) {
       return Column(
-        key: w.key,
-        // Preserve key if any
+        key: w.key, // Preserve key if any
         mainAxisAlignment: w.mainAxisAlignment,
         mainAxisSize: w.mainAxisSize,
         crossAxisAlignment: w.crossAxisAlignment,
@@ -47,8 +45,7 @@ class ShimmerAiWrapper extends StatelessWidget {
       );
     } else if (w is Row) {
       return Row(
-        key: w.key,
-        // Preserve key if any
+        key: w.key, // Preserve key if any
         mainAxisAlignment: w.mainAxisAlignment,
         mainAxisSize: w.mainAxisSize,
         crossAxisAlignment: w.crossAxisAlignment,

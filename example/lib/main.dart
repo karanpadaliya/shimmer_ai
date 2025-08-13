@@ -1,184 +1,241 @@
 import 'package:flutter/material.dart';
-import 'package:shimmer_ai/shimmer_ai.dart'; // Import the main package
+import 'package:shimmer_ai/shimmer_ai.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const MaterialApp(
+  debugShowCheckedModeBanner: false,
+  home: ShimmerAIExamples(),
+));
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: ShimmerDemoPage(),
-      debugShowCheckedModeBanner: false, // For cleaner demo
-    );
-  }
-}
-
-/// A simple StatefulWidget that toggles
-/// shimmer loading effect on/off.
-class ShimmerDemoPage extends StatefulWidget {
-  const ShimmerDemoPage({super.key});
+class ShimmerAIExamples extends StatefulWidget {
+  const ShimmerAIExamples({super.key});
 
   @override
-  State<ShimmerDemoPage> createState() => _ShimmerDemoPageState();
+  State<ShimmerAIExamples> createState() => _ShimmerAIExamplesState();
 }
 
-class _ShimmerDemoPageState extends State<ShimmerDemoPage> {
-  // Controls whether the shimmer is shown or the real content
-  bool isLoading = true;
+class _ShimmerAIExamplesState extends State<ShimmerAIExamples> {
+  bool loading = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('shimmer_ai demo'),
+        title: const Text('shimmer_ai — New Layout Controls'),
+        actions: [
+          Row(
+            children: [
+              const Text('Loading'),
+              Switch(
+                value: loading,
+                onChanged: (v) => setState(() => loading = v),
+              ),
+            ],
+          ),
+          const SizedBox(width: 8),
+        ],
       ),
-      body: SingleChildScrollView(
-        // Use SingleChildScrollView for better scrolling
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          // Align content to start
-          children: [
-            const Text('Toggle Shimmer:'),
-            Switch(
-              value: isLoading,
-              onChanged: (value) {
-                setState(() {
-                  isLoading = value;
-                });
-              },
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          _sectionTitle('Text'),
+          // Single line
+          Text(' ')
+              .withShimmerAi(
+            loading: loading,
+            width: 160,
+            height: 16,
+            margin: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
             ),
-            const SizedBox(height: 30),
-
-            // Example 1: Text widget with default shimmer effect
-            Text(
-              'Hello Shimmer! (Default)',
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ).withShimmerAi(loading: isLoading),
-
-            const SizedBox(height: 20),
-
-            // Example 2: CircleAvatar with custom shimmer colors and direction
-            const Text('Custom Shimmer for Avatar:'),
-            const SizedBox(height: 10),
-            CircleAvatar(
-              radius: 40,
-              backgroundImage: const NetworkImage(
-                'https://avatars.githubusercontent.com/u/14101776?v=4',
-              ),
-            ).withShimmerAi(
-              loading: isLoading,
-              baseColor: Colors.purple.shade100,
-              highlightColor: Colors.purple.shade50,
-              duration: const Duration(seconds: 2),
-              direction: ShimmerDirection.btt, // Bottom to top
+          ),
+          // Second line, different width
+          Text(' ')
+              .withShimmerAi(
+            loading: loading,
+            width: 220,
+            height: 12,
+            margin: const EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
             ),
+          ),
 
-            const SizedBox(height: 30),
-
-            // Example 3: Container with custom border radius and no repeat
-            const Text('Container with Custom Radius & No Repeat:'),
-            const SizedBox(height: 10),
-            Container(
-              width: 200,
-              height: 40,
-              decoration: BoxDecoration(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              alignment: Alignment.center,
-              child: const Text(
-                'Button',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ).withShimmerAi(
-              loading: isLoading,
-              borderRadius: 20, // More rounded corners
-              repeat: false, // Only one shimmer cycle
-              duration: const Duration(seconds: 1),
+          _sectionTitle('Image'),
+          // Image placeholder with fixed box and rounded corners
+          Image.network('https://picsum.photos/seed/ai/600/400', fit: BoxFit.cover)
+              .withShimmerAi(
+            loading: loading,
+            width: 280,
+            height: 160,
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.all(0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
             ),
+          ),
 
-            const SizedBox(height: 30),
+          _sectionTitle('CircleAvatar'),
+          // Pure circular skeleton using decoration
+          const SizedBox.shrink()
+              .withShimmerAi(
+            loading: loading,
+            width: 64,
+            height: 64,
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.all(0),
+            decoration: const BoxDecoration(shape: BoxShape.circle),
+          ),
 
-            // Example 4: Custom gradient shimmer
-            const Text('Custom Gradient Shimmer:'),
-            const SizedBox(height: 10),
-            Container(
-              width: 250,
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: const LinearGradient(
-                  colors: [Colors.teal, Colors.cyan],
+          _sectionTitle('ElevatedButton'),
+          // Button-sized placeholder
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text('Continue'),
+          ).withShimmerAi(
+            loading: loading,
+            width: 200,
+            height: 48,
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+
+          _sectionTitle('Card'),
+          // Card block with inner padding and outer margin
+          Card(
+            child: SizedBox(
+              width: double.infinity,
+              height: 120,
+              child: Center(
+                child: Text(
+                  loading ? ' ' : 'Loaded Card Content',
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
-              alignment: Alignment.center,
-              child: const Text(
-                'Gradient Shimmer',
-                style: TextStyle(color: Colors.white, fontSize: 22),
-              ),
-            ).withShimmerAi(
-              loading: isLoading,
-              customGradient: LinearGradient(
-                colors: [
-                  Colors.amber.shade200,
-                  Colors.amber.shade50,
-                  Colors.amber.shade200,
-                ],
-                stops: const [0.0, 0.5, 1.0],
-              ),
-              duration: const Duration(milliseconds: 1800),
-              angle: -0.5, // Tilted shimmer
             ),
+          ).withShimmerAi(
+            loading: loading,
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
 
-            const SizedBox(height: 30),
+          _sectionTitle('ListTile — Whole Tile Placeholder'),
+          // Whole tile as a single rounded rectangle placeholder
+          ListTile(
+            leading: const CircleAvatar(radius: 24),
+            title: Text(loading ? ' ' : 'Title'),
+            subtitle: Text(loading ? ' ' : 'Subtitle'),
+            trailing: const Icon(Icons.chevron_right),
+          ).withShimmerAi(
+            loading: loading,
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
 
-            // Example 5: A more complex list item
-            const Text('Complex List Item:'),
-            const SizedBox(height: 10),
-            Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
+          _sectionTitle('ListTile — Inline Line Placeholders'),
+          // Title & subtitle each sized using width/height; avatar circular via decoration
+          Row(
+            children: [
+              const SizedBox.shrink().withShimmerAi(
+                loading: loading,
+                width: 48,
+                height: 48,
+                decoration: const BoxDecoration(shape: BoxShape.circle),
+                margin: const EdgeInsets.only(right: 12),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CircleAvatar(
-                      radius: 30,
-                      backgroundImage:
-                          NetworkImage('https://via.placeholder.com/150'),
+                    Text(' ')
+                        .withShimmerAi(
+                      loading: loading,
+                      width: 180,
+                      height: 14,
+                      margin: const EdgeInsets.only(bottom: 6),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
                     ),
-                    const SizedBox(width: 15),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'User Name Here',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 5),
-                          const Text(
-                            'Short description or status update.',
-                            style: TextStyle(fontSize: 14, color: Colors.grey),
-                          ),
-                        ],
+                    Text(' ')
+                        .withShimmerAi(
+                      loading: loading,
+                      width: 240,
+                      height: 12,
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
                       ),
                     ),
                   ],
                 ),
               ),
-            ).withShimmerAi(loading: isLoading),
+              const Icon(Icons.chevron_right),
+            ],
+          )
+              .withShimmerAi(
+            loading: false, // keep parent normal; shimmer is on the lines above
+            margin: const EdgeInsets.symmetric(vertical: 8),
+          ),
 
-            const SizedBox(height: 30),
-          ],
-        ),
+          _sectionTitle('Icon'),
+          // Icon sized and centered inside a circular shimmer box
+          const Icon(Icons.star, size: 28)
+              .withShimmerAi(
+            loading: loading,
+            width: 44,
+            height: 44,
+            margin: const EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(shape: BoxShape.circle),
+          ),
+
+          _sectionTitle('Grid — Card Thumbnails'),
+          // Grid items use decoration for rounded corners; grid gives width/height
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 6,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 1,
+            ),
+            itemBuilder: (_, i) {
+              return const SizedBox.shrink().withShimmerAi(
+                loading: loading,
+                margin: const EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              );
+            },
+          ),
+
+          const SizedBox(height: 24),
+        ],
       ),
+    );
+  }
+
+  Widget _sectionTitle(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 12, bottom: 8),
+      child: Text(text, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
     );
   }
 }

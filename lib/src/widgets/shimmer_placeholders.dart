@@ -8,8 +8,11 @@ class ShimmerTextPlaceholder extends StatelessWidget {
   final Widget original;
   final ShimmerAiConfig config;
 
-  const ShimmerTextPlaceholder(
-      {required this.original, required this.config, super.key});
+  const ShimmerTextPlaceholder({
+    required this.original,
+    required this.config,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +21,9 @@ class ShimmerTextPlaceholder extends StatelessWidget {
 
     if (original is Text) {
       final text = original as Text;
-      width = estimateTextWidth(text);
-      height = estimateTextHeight(text);
+      // Use explicit width from config if provided, otherwise estimate
+      width = config.width ?? estimateTextWidth(text);
+      height = config.height ?? estimateTextHeight(text);
     }
 
     width ??= 120;
@@ -29,11 +33,15 @@ class ShimmerTextPlaceholder extends StatelessWidget {
       child: Container(
         width: width,
         height: height,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(config.borderRadius),
-        ),
-        margin: const EdgeInsets.symmetric(vertical: 4),
+        margin: config.margin ?? const EdgeInsets.symmetric(vertical: 4),
+        padding: config.padding,
+        alignment: config.alignment,
+        constraints: config.constraints,
+        decoration: config.decoration ??
+            BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(config.borderRadius),
+            ),
       ),
     );
   }
@@ -59,8 +67,9 @@ class ShimmerBoxPlaceholder extends StatelessWidget {
     double? height;
 
     if (original != null) {
-      width = getWidgetWidth(original!);
-      height = getWidgetHeight(original!);
+      // Use explicit width/height from config if provided, otherwise get from original widget
+      width = config.width ?? getWidgetWidth(original!);
+      height = config.height ?? getWidgetHeight(original!);
     }
 
     width ??= isCircle ? 40 : 100;
@@ -70,13 +79,18 @@ class ShimmerBoxPlaceholder extends StatelessWidget {
       child: Container(
         width: width,
         height: height,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius:
-              isCircle ? null : BorderRadius.circular(config.borderRadius),
-          shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
-        ),
-        margin: const EdgeInsets.all(4),
+        margin: config.margin,
+        padding: config.padding,
+        alignment: config.alignment,
+        constraints: config.constraints,
+        decoration: config.decoration ??
+            BoxDecoration(
+              color: Colors.white,
+              borderRadius: isCircle
+                  ? null
+                  : BorderRadius.circular(config.borderRadius),
+              shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
+            ),
       ),
     );
   }

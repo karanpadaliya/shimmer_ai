@@ -1,87 +1,57 @@
-# ✨ shimmer_ai – Effortless Flutter Shimmer
+<!DOCTYPE html>
+<html lang="en">
+<body>
 
-**Instantly Create Skeleton Screens & Animated Loading Effects with `.withShimmerAi()`**
+<h1>✨ shimmer_ai – Effortless Flutter Shimmer</h1>
 
-**shimmer_ai** is a lightweight, zero-configuration Flutter package that instantly adds beautiful, smooth **shimmer loading effects** and **skeleton screens** to any widget — including Text, Images, Buttons, Cards, ListTiles, and more — with **just one line of code**! ✨
+<p><strong>Instantly Create Skeleton Screens & Animated Loading Effects with <code>.withShimmerAi()</code></strong></p>
 
-Perfect for creating engaging **skeleton UIs**, dynamic **content placeholders**, and polished preload states that enhance **UI/UX**, delight users, and make your app feel incredibly responsive and professional.
+<p><strong>shimmer_ai</strong> is a lightweight, zero-configuration Flutter package that instantly adds beautiful, smooth <strong>shimmer loading effects</strong> and <strong>skeleton screens</strong> to any widget — including Text, Images, Buttons, Cards, ListTiles, and more — with <strong>just one line of code!</strong> ✨</p>
 
----
+<p>Perfect for creating engaging <strong>skeleton UIs</strong>, dynamic <strong>content placeholders</strong>, and polished preload states that enhance <strong>UI/UX</strong>, delight users, and make your app feel incredibly responsive and professional.</p>
 
-## 🚀 Key Features & Benefits
+<hr>
 
-- ⚡️ **Universal Application:** Apply **shimmer animations** on *any* Flutter widget – no need to build custom placeholder widgets.
-- 🧠 **Intuitive & Minimal API:** Simply add `.withShimmerAi(loading: true)` to any widget for instant **animated loading indicators**.
-- 🎨 **Extensive Customization:** Fine-tune your **shimmer effect** with:
-    - `baseColor`, `highlightColor`: Set shimmer colors
-    - `duration`: Control animation speed
-    - `direction`: Choose animation direction (LTR, RTL, TTB, BTT)
-    - `angle`: Control shimmer tilt
-    - `borderRadius`: Customize shape
-    - `repeat`, `loopCount`: Manage animation loop
-    - `customGradient`: Define a custom gradient
-- ⚙️ **Zero External Dependencies:** Built entirely inside **shimmer_ai**, no third-party packages needed.
-- ✅ **High Performance & Production-Ready**
-- 📱 **Responsive & Adaptive:** Works across mobile, web, desktop
-- 💡 **Ideal for:**
-    - Loading states
-    - Skeleton UIs / Skeleton screens
-    - Content placeholders
-    - Onboarding animations
-    - List and grid loaders
-    - Any async data loading
+<h2>🚀 Key Features & Benefits</h2>
+<ul>
+<li>⚡️ <strong>Universal Application:</strong> Apply shimmer animations on any Flutter widget – no need to build custom placeholder widgets.</li>
+<li>🧠 <strong>Minimal API:</strong> Just add <code>.withShimmerAi(loading: true)</code> to any widget.</li>
+<li>🎨 <strong>Extensive Customization:</strong> Colors, duration, direction, tilt, border radius, loop, custom gradient.</li>
+<li>🎯 <strong>Pixel‑Perfect Layout (v1.3.0+):</strong> Control width, height, margin, padding, decoration without wrappers.</li>
+<li>⚙️ <strong>No External Dependencies</strong></li>
+<li>✅ <strong>High Performance</strong></li>
+<li>📱 <strong>Responsive & Adaptive</strong></li>
+<li>💡 <strong>Perfect for:</strong> Loading states, skeleton UIs, onboarding animations, list/grid loaders.</li>
+</ul>
 
----
+<hr>
 
-## 🎉 Getting Started
+<h2>🎉 Getting Started</h2>
+<pre><code>dependencies:
+  shimmer_ai: ^1.3.0
+</code></pre>
+<pre><code>flutter pub get
+</code></pre>
+<pre><code>import 'package:shimmer_ai/shimmer_ai.dart';
+</code></pre>
 
-Add to your `pubspec.yaml`:
+<hr>
 
-```yaml
-dependencies:
-  shimmer_ai: ^1.2.1 # Use latest version
-```
+<h2>💡 Simple Usage</h2>
+<pre><code>Text('Loading Data').withShimmerAi(loading: true);
+</code></pre>
 
-Then run:
-
-```bash
-flutter pub get
-```
-
----
-
-## 💡 Simple Usage
-
-Import the package:
-
-```dart
-import 'package:shimmer_ai/shimmer_ai.dart';
-```
-
-Use `.withShimmerAi()` on any widget:
-
-```dart
-// Example: Text shimmer
-Text('Loading Data').withShimmerAi(loading: isLoading);
-
-// Example: Card shimmer
 Card(
-  child: Column(
-    children: [
-      // ... content
-    ],
-  ),
-).withShimmerAi(loading: isFetchingData);
-```
+child: Column(children: []),
+).withShimmerAi(loading: true);
+</code></pre>
 
----
+<hr>
 
-## 🔧 Advanced Usage & Customization
+<h2>🔧 Advanced Usage & Customization</h2>
 
-### Direct Parameters
-
-```dart
-Text('Loading...')
+<h3>Direct Parameters</h3>
+<pre><code>Text('Loading...')
   .withShimmerAi(
     loading: true,
     baseColor: Colors.grey.shade300,
@@ -93,12 +63,10 @@ Text('Loading...')
     repeat: false,
     loopCount: 3,
   );
-```
+</code></pre>
 
-### Using `ShimmerAiConfig`
-
-```dart
-const myCustomShimmerConfig = ShimmerAiConfig(
+<h3>Using ShimmerAiConfig</h3>
+<pre><code>const myCustomShimmerConfig = ShimmerAiConfig(
   baseColor: Colors.deepPurple,
   highlightColor: Colors.purpleAccent,
   duration: Duration(milliseconds: 2500),
@@ -106,32 +74,16 @@ const myCustomShimmerConfig = ShimmerAiConfig(
   angle: -0.7,
   borderRadius: 8,
 );
+</code></pre>
 
-CircleAvatar(
-  radius: 50,
-).withShimmerAi(
-  loading: true,
-  config: myCustomShimmerConfig,
+CircleAvatar(radius: 50).withShimmerAi(
+loading: true,
+config: myCustomShimmerConfig,
 );
-```
+</code></pre>
 
-You can override config values too:
-
-```dart
-Container(
-  width: 150,
-  height: 30,
-).withShimmerAi(
-  loading: true,
-  config: myCustomShimmerConfig,
-  direction: ShimmerDirection.ltr,
-);
-```
-
-### Custom Gradient Shimmer
-
-```dart
-Container(
+<h3>Custom Gradient</h3>
+<pre><code>Container(
   width: 280,
   height: 60,
   alignment: Alignment.center,
@@ -155,23 +107,125 @@ Container(
   duration: Duration(seconds: 3),
   angle: 0.8,
 );
-```
+</code></pre>
 
----
+<h3>Pixel‑Perfect Layout (v1.3.0+)</h3>
+<pre><code>Text(' ')
+  .withShimmerAi(
+    loading: true,
+    width: 160,
+    height: 16,
+    margin: const EdgeInsets.only(bottom: 8),
+    padding: const EdgeInsets.symmetric(horizontal: 8),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
+  );
+</code></pre>
 
-## 📸 Screenshots & Examples
+<hr>
 
-Check the [example directory](https://github.com/karanpadaliya/shimmer_ai/tree/main/example) for full demos.
+<h2>📸 Examples</h2>
 
----
+<h3>Text Placeholder</h3>
+<pre><code>Text(' ').withShimmerAi(
+  loading: loading,
+  width: 220,
+  height: 12,
+  margin: const EdgeInsets.only(bottom: 16),
+  padding: const EdgeInsets.symmetric(horizontal: 8),
+  decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
+);
+</code></pre>
 
-## 🤝 Contributing
+<h3>Image Placeholder</h3>
+<pre><code>Image.network('https://picsum.photos/seed/ai/600/400', fit: BoxFit.cover)
+  .withShimmerAi(
+    loading: loading,
+    width: 280,
+    height: 160,
+    margin: const EdgeInsets.symmetric(vertical: 8),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+  );
+</code></pre>
 
-We welcome PRs, bug reports, and suggestions! Feel free to open an issue or pull request on [GitHub](https://github.com/karanpadaliya/shimmer_ai).
+<h3>Circular Avatar</h3>
+<pre><code>SizedBox.shrink().withShimmerAi(
+  loading: loading,
+  width: 64,
+  height: 64,
+  decoration: BoxDecoration(shape: BoxShape.circle),
+);
+</code></pre>
 
----
+<h3>Button</h3>
+<pre><code>ElevatedButton(onPressed: () {}, child: const Text('Continue'))
+  .withShimmerAi(
+    loading: loading,
+    width: 200,
+    height: 48,
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+  );
+</code></pre>
 
-## 📄 License
+<h3>Card Placeholder</h3>
+<pre><code>Card(
+  child: SizedBox(
+    height: 120,
+    child: Center(
+      child: Text(loading ? ' ' : 'Loaded Card Content'),
+    ),
+  ),
+).withShimmerAi(
+  loading: loading,
+  decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+);
+</code></pre>
 
-MIT © [karanpadaliya](https://github.com/karanpadaliya)  
-[View License](https://github.com/karanpadaliya/shimmer_ai/blob/main/LICENSE)
+<h3>ListTile</h3>
+<pre><code>ListTile(
+  leading: const CircleAvatar(radius: 24),
+  title: Text(loading ? ' ' : 'Title'),
+  subtitle: Text(loading ? ' ' : 'Subtitle'),
+).withShimmerAi(
+  loading: loading,
+  decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+);
+</code></pre>
+
+<h3>Icon</h3>
+<pre><code>Icon(Icons.star, size: 28).withShimmerAi(
+  loading: loading,
+  width: 44,
+  height: 44,
+  decoration: BoxDecoration(shape: BoxShape.circle),
+);
+</code></pre>
+
+<h3>Grid</h3>
+<pre><code>GridView.builder(
+  shrinkWrap: true,
+  physics: NeverScrollableScrollPhysics(),
+  itemCount: 6,
+  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 3,
+    mainAxisSpacing: 8,
+    crossAxisSpacing: 8,
+  ),
+  itemBuilder: (_, i) {
+    return SizedBox.shrink().withShimmerAi(
+      loading: loading,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+    );
+  },
+);
+</code></pre>
+
+<hr>
+
+<h2>🤝 Contributing</h2>
+<p>We welcome PRs, bug reports, and suggestions! Open an issue or PR on <a href="https://github.com/karanpadaliya/shimmer_ai">GitHub</a>.</p>
+
+<h2>📄 License</h2>
+<p>MIT © <a href="https://github.com/karanpadaliya">karanpadaliya</a></p>
+
+</body>
+</html>
